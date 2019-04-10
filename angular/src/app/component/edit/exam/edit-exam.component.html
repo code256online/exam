@@ -1,0 +1,28 @@
+<form name="fixedForm">
+  <fieldset>
+    <legend>試験種別の編集</legend>
+    <div class="form-group" [class.has-danger]="errors['examName']">
+      <p>試験種別名</p>
+      <input class="form-control" type="text" name="examName" placeholder="試験種別名" [(ngModel)]="exam.examName"
+        [class.is-invalid]="errors['examName']" />
+      <ng-container *ngIf="errors['examName']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['examName']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['passingScore']">
+      <p>合否ライン（％）</p>
+      <input class="form-control" type="text" name="passingScore" placeholder="65" [(ngModel)]="exam.passingScore"
+        [class.is-invalid]="errors['passingScore']" />
+      <ng-container *ngIf="errors['passingScore']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['passingScore']">{{ msg }}</div>
+      </ng-container>
+    </div>
+  </fieldset>
+</form>
+<hr class="my4" />
+<ng-container *ngIf="readOnly; else insertMode">
+  <button class="btn btn-primary" (click)="update()">更新する</button>
+</ng-container>
+<ng-template #insertMode>
+  <button class="btn btn-primary" (click)="insert()">登録する</button>
+</ng-template>

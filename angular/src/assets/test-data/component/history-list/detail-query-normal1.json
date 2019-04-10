@@ -1,0 +1,8 @@
+{
+    "queryParams": {
+        "examineeId": 1,
+        "examNo": 1,
+        "examCoverage": -1,
+        "examCount": 1
+    }
+}

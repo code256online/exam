@@ -1,0 +1,24 @@
+<div class="form-group" [formGroup]="formGroup" [class.has-danger]="errors['fixedQuestions']">
+  <p>
+    出題範囲
+    <ng-container *ngIf="authenticated">
+      <span>
+        <fa-icon [icon]="editIcon" (click)="onClickEditIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="createIcon" (click)="onClickCreateIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="deleteIcon" (click)="onClickDeleteIcon()"></fa-icon>
+      </span>
+    </ng-container>
+  </p>
+  <select class="custom-select" formControlName="fixedQuestionsId" [class.is-invalid]="errors['fixedQuestions']">
+    <option *ngFor="let questions of fixedQuestions | async" [ngValue]="questions.id">
+      {{ questions.name }}
+    </option>
+  </select>
+  <ng-container *ngIf="errors['fixedQuestions']">
+    <div class="invalid-feedback" *ngFor="let msg of errors['fixedQuestions']">{{ msg }}</div>
+  </ng-container>
+</div>

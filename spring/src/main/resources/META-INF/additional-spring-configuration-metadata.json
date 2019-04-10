@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "exam.cookie.secure",
+    "type": "java.lang.Boolean",
+    "description": "SSLでのみCookieの読み取りを許可"
+  },
+  {
+    "name": "exam.question.image.upload-path",
+    "type": "java.lang.String",
+    "description": "問題画像ファイルのアップロードパス"
+  },
+  {
+    "name": "exam.question.image.filename-pattern",
+    "type": "java.lang.String",
+    "description": "問題画像ファイルのファイル名パターン"
+  },
+  {
+    "name": "Abstract-user-details-authentication-provider.bad-credentials",
+    "type": "java.lang.String",
+    "description": "ログインパスワードが一致しなかったときのエラーメッセージ"
+  }
+]}

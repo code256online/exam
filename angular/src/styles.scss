@@ -1,0 +1,117 @@
+@import '../node_modules/bootswatch/dist/flatly/variables.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../node_modules/bootswatch/dist/flatly/bootswatch.scss';
+
+img {
+  width: 100%;
+  height: auto;
+  max-width: 1000px;
+  min-width: 200px;
+}
+
+.bs-docs-section {
+  margin-top: 40px;
+}
+
+.custom-switch .custom-control-label::before {
+  cursor: pointer;
+}
+
+.custom-switch .custom-control-label::after {
+  cursor: pointer;
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+.modal {
+
+  .modal-dialog {
+
+    height: 100%;
+
+    .modal-content {
+
+      top: 10%;
+      position: absolute;
+      max-height: 90vh;
+
+      .modal-header {
+        cursor: move;
+      }
+
+      #trace {
+        color: gainsboro;
+        background: #220011;
+        min-height: 100px;
+        max-height: 300px;
+      }
+    }
+  }
+}
+
+.modal.show {
+  display: block;
+  background: rgba(0, 0, 0, .5);
+
+}
+
+.modal.show.header {
+  background: rgba(0, 0, 0, 0);
+  z-index: 5;
+}
+
+.hide {
+  display: none;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 2000;
+}
+
+.loading::before {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: -45px;
+  margin-left: -15px;
+  border-radius: 8px;
+  background: white;
+}
+
+.loading::after {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  border-radius: 36px;
+  margin-top: -32px;
+  margin-left: -2px;
+  border: 6px solid #2C3E50;
+  border-right: 6px solid white;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

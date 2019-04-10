@@ -1,0 +1,9 @@
+{
+    "examinee": "examinee",
+    "examineeId": 1,
+    "examNo": 2,
+    "examCoverage": 3,
+    "questionCount": 4,
+    "questionMode": "NORMAL",
+    "fixedQuestionsId": 5
+}

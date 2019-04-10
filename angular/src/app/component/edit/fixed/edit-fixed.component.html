@@ -1,0 +1,53 @@
+<form name="fixedForm">
+  <fieldset>
+    <legend>固定出題モードの編集</legend>
+    <div class="form-group" [class.has-danger]="errors['name']">
+      <p>出題範囲名</p>
+      <input class="form-control" type="text" name="name" placeholder="出題範囲名" [(ngModel)]="fixedQuestion.name"
+        [class.is-invalid]="errors['name']" />
+      <ng-container *ngIf="errors['name']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['name']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group">
+      <p>問題追加</p>
+      <select class="custom-select" name="examNo" id="examNo" [(ngModel)]="examNo"
+        (change)="onChangeExamNo($event.target[examNo].innerText)">
+        <option></option>
+        <option *ngFor="let exam of exams | async" [ngValue]="exam.examNo">
+          {{ exam.examName }}
+        </option>
+      </select>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="questionNo" placeholder="問題番号" [(ngModel)]="questionNo" />
+        <div class="input-group-apend">
+          <button class="btn btn-primary" (click)="appendQuestion()" [disabled]="!canAppend">追加</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['questions']">
+      <p>出題リスト</p>
+      <div class="alert alert-dismissible alert-danger" *ngFor="let msg of errors['questions']; let i = index">
+        <button type="button" class="close" (click)="closeQuestionsError(i)">&times;</button>
+        <span>{{ msg }}</span>
+      </div>
+      <ul class="list-group" cdkDropList (cdkDropListDropped)="onQuestionListDrop($event)"
+        [class.is-invalid]="errors['questions']">
+        <li class="list-group-item justify-content-between align-items-center"
+          *ngFor="let question of fixedQuestion.questions; let i = index"
+          (click)="openLightbox(i)" cdkDrag [class.is-invalid]="errors['questions']">
+          <fa-icon class="drag-icon" [icon]="gripIcon" cdkDragHandle></fa-icon>
+          <a href="javascript:void(0);">{{ question.examName }} No.{{ question.questionNo }}</a>
+          <fa-icon class="delete-icon" [icon]="deleteIcon" (click)="removeQuestion(i)"></fa-icon>
+        </li>
+      </ul>
+    </div>
+  </fieldset>
+</form>
+<hr class="my4" />
+<ng-container *ngIf="readOnly; else insertMode">
+  <button class="btn btn-primary" (click)="update()">更新する</button>
+</ng-container>
+<ng-template #insertMode>
+  <button class="btn btn-primary" (click)="insert()">登録する</button>
+</ng-template>

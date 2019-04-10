@@ -1,0 +1,73 @@
+<div class="bs-docs-section">
+  <div class="bs-component">
+    <h3>直近の受験履歴<span><fa-icon id="reloadIcon" [icon]="reloadIcon" (click)="onClickReloadIcon()"></fa-icon></span></h3>
+    <hr class="my-4">
+    <div class="form-group">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="questionType" name="questionType"
+          [checked]="questionMode === mode.FIXED" (click)="onQuestionModeClick()">
+        <label class="custom-control-label" for="questionType">固定出題モードを参照</label>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="admin">
+      <select class="custom-select" id="examinees" (change)="loadPage(0)" [(ngModel)]="examineeId">
+        <option value="-999">全てのユーザー</option>
+        <option *ngFor="let user of examinees | async" [value]="user.examineeId">{{ user.examineeName }}</option>
+      </select>
+    </div>
+    <ng-container *ngIf="chartVisible">
+      <app-line-chart [visible]="chartVisible" [chartData]="chartData"></app-line-chart>
+      <hr class="my-4" />
+    </ng-container>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">受験者</th>
+          <ng-container *ngIf="questionMode === mode.FIXED; else normalHeader">
+            <th scope="col">出題テーマ</th>
+          </ng-container>
+          <ng-template #normalHeader>
+            <th scope="col">試験名</th>
+            <th scope="col">試験範囲</th>
+            <th scope="col">出題数</th>
+          </ng-template>
+          <th scope="col">回答数</th>
+          <th scope="col">正答数</th>
+          <th scope="col">所要時間</th>
+          <th scope="col">回答終了日時</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="historyPage">
+        <tr *ngFor="let row of historyPage.content; odd as odd" [class.table-light]="odd" (click)="toDetail(row)">
+          <th scope="row">{{ row.examineeName }}</th>
+          <ng-container *ngIf="questionMode === mode.FIXED; else normalBody">
+            <th>{{ row.fixedQuestionsName }}</th>
+          </ng-container>
+          <ng-template #normalBody>
+            <th>{{ row.examName }}</th>
+            <th>{{ row.examCoverageName }}</th>
+            <td>{{ row.questionCount }}問</td>
+          </ng-template>
+          <td>{{ row.answerCount }}問 ({{ row.answerRate | number:'1.0-1' }}％)</td>
+          <td>{{ row.correctCount }}問 ({{ row.correctRate | number:'1.0-1' }}％)</td>
+          <td>{{ row.durationMinutes | number:'2.0-1' }}:{{ row.durationSeconds | number:'2.0-1' }}</td>
+          <td>{{ row.timestamp | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="my-4" />
+    <ul class="pagination" id="paginations" *ngIf="historyPage">
+      <li class="page-item" [class.disabled]="historyPage.first">
+        <a class="page-link" href="javascript:void(0);" (click)="loadPage(0, examineeId)">&laquo;</a>
+      </li>
+      <li class="page-item" *ngFor="let item of historyPage.items" [class.active]="item.current">
+        <a class="page-link" href="javascript:void(0);" (click)="loadPage((item.number - 1), examineeId)">
+          {{ item.number }}
+        </a>
+      </li>
+      <li class="page-item" [class.disabled]="historyPage.last">
+        <a class="page-link" href="javascript:void(0);" (click)="loadPage((historyPage.totalPages - 1), examineeId)">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+</div>

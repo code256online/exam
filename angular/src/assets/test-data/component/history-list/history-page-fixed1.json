@@ -1,0 +1,47 @@
+{
+    "content": [{
+            "examineeId": 1,
+            "examineeName": "名前１",
+            "examNo": 1,
+            "examName": "試験１",
+            "fixedQuestionsId": 0,
+            "fixedQuestionsName": "固定１",
+            "examCount": 1,
+            "questionCount": 10,
+            "answerCount": 9,
+            "correctCount": 8,
+            "answerRate": 90,
+            "correctRate": 80,
+            "timestamp": "2018-11-11T12:34:56"
+        },
+        {
+            "examineeId": 2,
+            "examineeName": "名前２",
+            "examNo": 1,
+            "examName": "試験１",
+            "fixedQuestionsId": 1,
+            "fixedQuestionsName": "固定２",
+            "examCount": 1,
+            "questionCount": 5,
+            "answerCount": 4,
+            "correctCount": 3,
+            "answerRate": 80,
+            "correctRate": 60,
+            "timestamp": "2018-11-10T12:34:56"
+        }
+    ],
+    "items": [{
+            "number": 1,
+            "current": true
+        },
+        {
+            "number": 2,
+            "current": false
+        }
+    ],
+    "last": false,
+    "first": true,
+    "currentNumber": 1,
+    "totalElements": 12,
+    "totalPages": 2
+}

@@ -1,0 +1,70 @@
+<div class="bs-docs-section">
+  <div class="bs-component">
+    <h3>今回の結果</h3>
+    <h4>{{ page.content[0].examName }}</h4>
+    <ng-container *ngIf="fixed; else coverage">
+      <h4>{{ page.content[0].fixedQuestionsName }}</h4>
+    </ng-container>
+    <ng-template #coverage>
+      <h4>{{ page.content[0].examCoverageName }}</h4>
+    </ng-template>
+    <p>
+      <strong>{{ page.content[0].questionCount }}</strong>問中
+      <strong>{{ page.content[0].answerCount }}</strong>問回答
+      <strong>{{ page.content[0].correctCount }}</strong>問正解 でした。
+    </p>
+    <p *ngIf="page.content[0].incorrectQuestions.length !== 0">
+      不正解だった問題は以下の通りです。
+    </p>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let incorrect of page.content[0].incorrectQuestions; let i = index" (click)="openLightbox(i)">
+        <ng-container *ngIf="fixed; else normalList">
+          <a href="javascript:void(0);">{{ incorrect.examName }} No.{{ incorrect.questionNo }}</a>
+        </ng-container>
+        <ng-template #normalList>
+          <a href="javascript:void(0);">No.{{ incorrect.questionNo }}</a>
+        </ng-template>
+        <span>正答：[{{ page.content[0].correctAnswers[i] }}]</span>
+      </li>
+    </ul>
+    <hr class="my4" />
+    <app-line-chart [visible]="page" [chartData]="chartData" *ngIf="!fixed"></app-line-chart>
+    <hr class="my-4" *ngIf="!fixed" />
+    <h3>受験履歴</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <ng-container *ngIf="fixed; else normalHeader">
+            <th scope="col">出題テーマ</th>
+          </ng-container>
+          <ng-template #normalHeader>
+            <th scope="col">試験名</th>
+            <th scope="col">試験範囲</th>
+            <th scope="col">出題数</th>
+          </ng-template>
+          <th scope="col">回答数</th>
+          <th scope="col">正答数</th>
+          <th scope="col">所要時間</th>
+          <th scope="col">回答終了日時</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="page">
+        <tr *ngFor="let row of page.content; odd as odd" [class.table-light]="odd">
+          <ng-container *ngIf="fixed; else normalBody">
+            <th>{{ row.fixedQuestionsName }}</th>
+          </ng-container>
+          <ng-template #normalBody>
+            <th>{{ row.examName }}</th>
+            <th>{{ row.examCoverageName }}</th>
+            <td>{{ row.questionCount }}問</td>
+          </ng-template>
+          <td>{{ row.answerCount }}問 ({{ row.answerRate | number:'1.0-1' }}％)</td>
+          <td>{{ row.correctCount }}問 ({{ row.correctRate | number:'1.0-1' }}％)</td>
+          <td>{{ row.durationMinutes | number:'2.0-1' }}:{{ row.durationSeconds | number:'2.0-1' }}</td>
+          <td>{{ row.timestamp | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="form-group" [class.has-danger]="errors['examCoverage']" [formGroup]="formGroup">
+  <p>
+    出題範囲
+    <ng-container *ngIf="authenticated">
+      <span>
+        <fa-icon [icon]="editIcon" (click)="onClickEditIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="createIcon" (click)="onClickCreateIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="deleteIcon" (click)="onClickDeleteIcon()"></fa-icon>
+      </span>
+    </ng-container>
+  </p>
+  <select class="custom-select" formControlName="examCoverage" [class.is-invalid]="errors['examCoverage']">
+    <option *ngFor="let coverage of coverages | async" [ngValue]="coverage.id">
+      {{ coverage.name }}
+    </option>
+  </select>
+  <ng-container *ngIf="errors['examCoverage']">
+    <div class="invalid-feedback" *ngFor="let msg of errors['examCoverage']">{{ msg }}</div>
+  </ng-container>
+</div>

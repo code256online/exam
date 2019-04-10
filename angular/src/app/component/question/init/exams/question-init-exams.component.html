@@ -1,0 +1,25 @@
+<div class="form-group" [formGroup]="formGroup">
+  <p>
+    試験種別
+    <ng-container *ngIf="authenticated">
+      <span>
+        <fa-icon [icon]="editIcon" (click)="onClickEditIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="createIcon" (click)="onClickCreateIcon()"></fa-icon>
+      </span>
+      <span>
+        <fa-icon [icon]="deleteIcon" (click)="onClickDeleteIcon()"></fa-icon>
+      </span>
+    </ng-container>
+  </p>
+  <select class="custom-select" formControlName="examNo" (change)="onExamNoChange($event.target.value)"
+    [class.is-invalid]="errors['examNo']">
+    <option *ngFor="let exam of exams | async" [value]="exam.examNo">
+      {{ exam.examName }}
+    </option>
+  </select>
+  <ng-container *ngIf="errors['examNo']">
+    <div class="invalid-feedback" *ngFor="let msg of errors['examNo']">{{ msg }}</div>
+  </ng-container>
+</div>

@@ -1,0 +1,8 @@
+{
+    "queryParams": {
+        "examineeId": 1,
+        "examNo": 1,
+        "fixedQuestionsId": 0,
+        "examCount": 1
+    }
+}

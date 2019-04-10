@@ -1,0 +1,34 @@
+exam:
+  error:
+    init:
+      nameOrId: 受験者名と受験者IDは同時に設定できません。
+      examineeIsNotFound: 指定された受験者IDは存在しません。
+      examineeNameIsBlank: 受験者IDを指定しない場合は、受験者名を設定してください。
+      examCoverageIsNotFound: 試験種別と試験範囲の組み合わせが正しくありません。
+      invalidQuestionCount: 出題数の値が不正です。
+      fixedIdIsNull: 出題範囲を選択してください。
+    fixed:
+      nameIsEmpty: 試験範囲名を入力してください。
+      questionsIsEmpty: 出題する問題を設定してください。
+      questionIsNotFound: いずれかの出題番号が該当の試験種別に存在しません。
+    exam:
+      nameIsEmpty: 試験種別名を入力してください。
+      scoreIsEmpty: 合否ラインを入力してください。
+      scoreIsTooLarge: 合否ラインの値が大きすぎます。
+      scoreIsTooMin: 合否ラインの値が小さすぎます。
+    coverage:
+      examNoIsEmpty: 試験種別を指定してください。
+      nameIsEmpty: 試験範囲名を入力してください。
+    answer:
+      examNoIsEmpty: 試験種別を指定してください。
+      examCoverageIsEmpty: 試験範囲を指定してください。
+      questionNoIsEmpty: 試験番号を入力してください。
+      choicesCountIsEmpty: 選択肢数を入力してください。
+      correctAnswersIsEmpty: 正答を入力してください。
+      correctAnswersIsInvalid: 正答の記述形式が不正です。
+      examNoIsDuplicated: 問題番号が既存と重複しています。別の番号を指定してください。
+      imageIsEmpty: 出題画像ファイルが指定されていません。
+    edit:
+      lock: 更新に失敗しました。既に他の誰かが更新している可能性があります。
+AbstractUserDetailsAuthenticationProvider:
+  badCredentials: パスワードが違います。

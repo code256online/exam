@@ -1,0 +1,19 @@
+<div class="modal fade" *ngIf="this.params" [class.show]="this.params.show" (click)="onCancel($event)">
+  <div class="modal-dialog" role="document" (click)="cancelEvent($event)">
+    <div class="modal-content" cdkDrag>
+      <div class="modal-header" *ngIf="params.title" cdkDragHandle>
+        <h5 class="modal-title">{{ params.title }}</h5>
+        <button type="button" class="close" (click)="onCancel($event)">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngFor="let item of params.body">{{ item }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onOk($event)">{{ params.okLabel }}</button>
+        <button type="button" class="btn btn-secondary" *ngIf="params.cancelLabel" (click)="onCancel($event)">{{ params.cancelLabel }}</button>
+      </div>
+    </div>
+  </div>
+</div>

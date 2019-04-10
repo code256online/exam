@@ -1,0 +1,82 @@
+<form name="fixedForm">
+  <fieldset>
+    <legend>問題の編集</legend>
+    <div class="form-group" [class.has-danger]="errors['examNo']">
+      <p>
+        試験種別
+        <span><fa-icon [icon]="editIcon" (click)="onClickExamEditIcon()"></fa-icon></span>
+        <span><fa-icon [icon]="createIcon" (click)="onClickExamCreateIcon()"></fa-icon></span>
+        <span><fa-icon [icon]="deleteIcon" (click)="onClickExamDeleteIcon()"></fa-icon></span>
+      </p>
+      <select class="custom-select" name="examNo" id="examNo" [(ngModel)]="answer.examNo"
+        [class.is-invalid]="errors['examNo']" [disabled]="readOnly" (change)="onExamNoChange()">
+        <option *ngFor="let exam of exams | async" [ngValue]="exam.examNo">
+          {{ exam.examName }}
+        </option>
+      </select>
+      <ng-container *ngIf="errors['examNo']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['examNo']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['examCoverage']">
+      <p>
+        試験範囲
+        <span><fa-icon [icon]="editIcon" (click)="onClickCoverageEditIcon()"></fa-icon></span>
+        <span><fa-icon [icon]="createIcon" (click)="onClickCoverageCreateIcon()"></fa-icon></span>
+        <span><fa-icon [icon]="deleteIcon" (click)="onClickCoverageDeleteIcon()"></fa-icon></span>
+      </p>
+      <select class="custom-select" name="examCoverage" id="examCoverage" [(ngModel)]="answer.examCoverage"
+        [class.is-invalid]="errors['examCoverage']">
+        <option *ngFor="let coverage of coverages | async" [ngValue]="coverage.id">
+          {{ coverage.name }}
+        </option>
+      </select>
+      <ng-container *ngIf="errors['examCoverage']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['examCoverage']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['questionNo']">
+      <p>問題番号</p>
+      <input class="form-control" type="text" name="questionNo" placeholder="問題番号"
+        [(ngModel)]="answer.questionNo" [class.is-invalid]="errors['questionNo']" [readOnly]="readOnly" />
+      <ng-container *ngIf="errors['questionNo']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['questionNo']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['choicesCount']">
+      <p>選択肢数</p>
+      <input class="form-control" type="text" name="choicesCount" placeholder="選択肢数"
+        [(ngModel)]="answer.choicesCount" [class.is-invalid]="errors['choicesCount']" />
+      <ng-container *ngIf="errors['choicesCount']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['choicesCount']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['correctAnswers']">
+      <p>正答（半角アルファベットの大文字 複数回答はカンマ区切りで繋いで記述）</p>
+      <input class="form-control" type="text" name="correctAnswers" placeholder="A,B,C"
+        [(ngModel)]="answer.correctAnswers" [class.is-invalid]="errors['correctAnswers']" />
+      <ng-container *ngIf="errors['correctAnswers']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['correctAnswers']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['file']">
+      <label for="exampleInputFile">出題画像のアップロード</label>
+      <input type="file" class="form-control-file" id="file" name="file" (change)="onChangeUploadFile($event.target.files)"
+        [class.is-invalid]="errors['file']" />
+      <ng-container *ngIf="errors['file']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['file']">{{ msg }}</div>
+      </ng-container>
+      <small class="form-text text-muted">jpg 形式のファイルのみアップロードできます。</small>
+      <small class="form-text text-muted">編集モードで画像をアップロードするとファイルが上書きされ、元に戻せません。</small>
+    </div>
+    <a href="javascript:void(0);" (click)="openLightbox(0)" *ngIf="readOnly">出題画像の確認</a>
+  </fieldset>
+</form>
+<hr class="my4" />
+<ng-container *ngIf="readOnly; else insertMode">
+  <button class="btn btn-primary" (click)="updateConfirm()">更新する</button>
+  <button class="btn btn-outline-danger" (click)="delete()">削除する</button>
+</ng-container>
+<ng-template #insertMode>
+  <button class="btn btn-primary" (click)="insert()">登録する</button>
+</ng-template>

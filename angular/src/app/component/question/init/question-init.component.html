@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="bs-docs-section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="bs-component">
+          <h3>試験の設定</h3>
+          <form name="initForm" [formGroup]="initForm" (ngSubmit)="initQuestion()">
+            <fieldset>
+              <legend>試験選択</legend>
+              <div class="form-group">
+                <div class="form-group">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="questionType" name="questionType" [checked]="questionMode === mode.FIXED"
+                      (click)="onQuestionModeClick()">
+                    <label class="custom-control-label" for="questionType">固定出題モード</label>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="questionMode === mode.FIXED; else normal">
+                <app-question-init-fixed [fixedQuestions]="fixedQuestions" [errors]="errors" [formGroup]="initForm"></app-question-init-fixed>
+              </ng-container>
+              <ng-template #normal>
+                <app-question-init-exams [exams]="exams" [errors]="errors" [formGroup]="initForm" (examNoChange)="onExamNoChange($event)"></app-question-init-exams>
+                <app-question-init-coverage [coverages]="coverages" [errors]="errors" [formGroup]="initForm"></app-question-init-coverage>
+                <app-question-init-count [errors]="errors" [formGroup]="initForm"></app-question-init-count>
+              </ng-template>
+            </fieldset>
+            <hr class="my4" />
+            <button type="submit" class="btn btn-primary">模擬試験を開始する</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

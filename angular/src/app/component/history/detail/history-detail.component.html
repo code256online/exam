@@ -1,0 +1,54 @@
+<div class="bs-docs-section">
+  <div class="bs-component">
+    <h3>受験履歴詳細</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">受験者</th>
+          <ng-container *ngIf="questionMode === mode.FIXED; else normalHeader">
+            <th scope="col">出題テーマ</th>
+          </ng-container>
+          <ng-template #normalHeader>
+            <th scope="col">試験名</th>
+            <th scope="col">試験範囲</th>
+            <th scope="col">出題数</th>
+          </ng-template>
+          <th scope="col">回答数</th>
+          <th scope="col">正答数</th>
+          <th scope="col">所要時間</th>
+          <th scope="col">回答終了日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light">
+          <th scope="row">{{ page.examineeName }}</th>
+          <ng-container *ngIf="questionMode === mode.FIXED; else normalBody">
+            <th>{{ page.fixedQuestionsName }}</th>
+          </ng-container>
+          <ng-template #normalBody>
+            <th>{{ page.examName }}</th>
+            <th>{{ page.examCoverageName }}</th>
+            <td>{{ page.questionCount }}問</td>
+          </ng-template>
+          <td>{{ page.answerCount }}問 ({{ page.answerRate | number:'1.0-1' }}％)</td>
+          <td>{{ page.correctCount }}問 ({{ page.correctRate | number:'1.0-1' }}％)</td>
+          <td>{{ page.durationMinutes | number:'2.0-1' }}:{{ page.durationSeconds | number:'2.0-1' }}</td>
+          <td>{{ page.timestamp | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="page.incorrectQuestions && page.incorrectQuestions.length !== 0;">不正解だった問題は以下の通りです。</p>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let incorrect of page.incorrectQuestions; let i = index"
+        (click)="openLightbox(i)">
+        <ng-container *ngIf="questionMode === mode.FIXED; else normalList">
+          <a href="javascript:void(0);">{{ incorrect.examName }} No.{{ incorrect.questionNo }}</a>
+        </ng-container>
+        <ng-template #normalList>
+          <a href="javascript:void(0);">No.{{ incorrect.questionNo }}</a>
+        </ng-template>
+        <span>正答：[{{ page.correctAnswers[i] }}]</span>
+      </li>
+    </ul>
+  </div>
+</div>

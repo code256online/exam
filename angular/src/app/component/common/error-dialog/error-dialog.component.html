@@ -1,0 +1,20 @@
+<div id="source-modal" *ngIf="this.params" class="modal fade" [class.show]="this.params.show" (click)="onOk($event)">
+  <div class="modal-dialog modal-lg" (click)="cancelEvent($event)">
+    <div class="modal-content" cdkDrag>
+      <div class="modal-header danger" *ngIf="params.title" cdkDragHandle>
+        <h4 class="modal-title">{{ params.title }}</h4>
+        <button type="button" class="close" (click)="onOk($event)">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngFor="let msg of params.body">{{ msg }}</p>
+        <pre id="trace" *ngIf="params.trace">{{ params.trace }}</pre>
+      </div>
+      <div class="modal-footer">
+        <button id="error-trace-copy" type="button" class="btn btn-outline-primary" (click)="onCopy()" *ngIf="params.trace">コピー</button>
+        <button id="error-close" type="button" class="btn btn-primary" (click)="onOk($event)">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

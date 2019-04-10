@@ -1,0 +1,7 @@
+<div class="form-group" [class.has-danger]="errors['questionCount']" [formGroup]="formGroup">
+  <p>出題数</p>
+  <input type="text" class="form-control" formControlName="questionCount" placeholder="出題数" [class.is-invalid]="errors['questionCount']" />
+  <ng-container *ngIf="errors['questionCount']">
+    <div class="invalid-feedback" *ngFor="let msg of errors['questionCount']">{{ msg }}</div>
+  </ng-container>
+</div>

@@ -1,0 +1,29 @@
+<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" (click)="closeMenu()">
+  <div class="container">
+    <span class="navbar-brand">WEB模試</span>
+    <button class="navbar-toggler" type="button" (click)="toggleMenu($event)" [class.collapsed]="isOpen">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse show" id="navbarResponsive" [@openClose]="isOpen ? 'open' : 'closed'"
+      (@openClose.start)="onAnimationStart()" (@openClose.done)="onAnimationEnd()">
+      <ul class="navbar-nav" *ngIf="displayLink">
+        <li class="nav-item" [class.active]="activeLink == links.NORMAL">
+          <a class="nav-link" href="javascript:void(0);" routerLink="/" (click)="activeLink = links.NORMAL">試験の設定</a>
+        </li>
+        <li class="nav-item" [class.active]="activeLink == links.HISTORY">
+          <a class="nav-link" href="javascript:void(0);" routerLink="/history" (click)="activeLink = links.HISTORY">履歴を参照</a>
+        </li>
+        <li class="nav-item" [class.active]="activeLink == links.EDIT">
+          <a class="nav-link" href="javascript:void(0);" routerLink="/edit" (click)="activeLink = links.EDIT">出題データメンテナンス</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0);" (click)="logout()" *ngIf="isAuthenticated(); else check">ログアウト</a>
+          <ng-template #check>
+            <a class="nav-link" href="javascript:void(0);" (click)="login()">ログイン</a>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="source-modal" *ngIf="isOpen" class="modal fade show header" (click)="closeMenu()"></div>

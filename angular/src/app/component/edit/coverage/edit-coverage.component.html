@@ -1,0 +1,32 @@
+<form name="fixedForm">
+  <fieldset>
+    <legend>試験範囲の編集</legend>
+    <div class="form-group" [class.has-danger]="errors['examNo']">
+      <p>試験種別</p>
+      <select class="custom-select" name="examNo" id="examNo" [(ngModel)]="coverage.examNo"
+        [class.is-invalid]="errors['examNo']" [disabled]="readOnly">
+        <option *ngFor="let exam of exams | async" [ngValue]="exam.examNo" [selected]="coverage.examNo">
+          {{ exam.examName }}
+        </option>
+      </select>
+      <ng-container *ngIf="errors['examNo']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['examNo']">{{ msg }}</div>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="errors['name']">
+      <p>試験範囲名</p>
+      <input class="form-control" type="text" name="name" placeholder="試験範囲名" [(ngModel)]="coverage.name"
+        [class.is-invalid]="errors['name']" />
+      <ng-container *ngIf="errors['name']" >
+        <div class="invalid-feedback" *ngFor="let msg of errors['name']">{{ msg }}</div>
+      </ng-container>
+    </div>
+  </fieldset>
+</form>
+<hr class="my4" />
+<ng-container *ngIf="readOnly; else insertMode">
+  <button class="btn btn-primary" (click)="update()">更新する</button>
+</ng-container>
+<ng-template #insertMode>
+  <button class="btn btn-primary" (click)="insert()">登録する</button>
+</ng-template>
